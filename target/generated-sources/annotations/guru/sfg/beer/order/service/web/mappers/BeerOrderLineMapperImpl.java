@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-09T18:24:53+0200",
-    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.17 (Amazon.com Inc.)"
+    date = "2023-10-11T20:12:01+0200",
+    comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.20.1 (Amazon.com Inc.)"
 )
 @Component
 public class BeerOrderLineMapperImpl implements BeerOrderLineMapper {
@@ -33,6 +33,7 @@ public class BeerOrderLineMapperImpl implements BeerOrderLineMapper {
         }
         beerOrderLineDto.createdDate( dateMapper.asOffsetDateTime( line.getCreatedDate() ) );
         beerOrderLineDto.lastModifiedDate( dateMapper.asOffsetDateTime( line.getLastModifiedDate() ) );
+        beerOrderLineDto.upc( line.getUpc() );
         beerOrderLineDto.beerId( line.getBeerId() );
         beerOrderLineDto.orderQuantity( line.getOrderQuantity() );
 
@@ -55,6 +56,7 @@ public class BeerOrderLineMapperImpl implements BeerOrderLineMapper {
         beerOrderLine.lastModifiedDate( dateMapper.asTimestamp( dto.getLastModifiedDate() ) );
         beerOrderLine.beerId( dto.getBeerId() );
         beerOrderLine.orderQuantity( dto.getOrderQuantity() );
+        beerOrderLine.upc( dto.getUpc() );
 
         return beerOrderLine.build();
     }

@@ -36,8 +36,8 @@ public class TastingRoomService {
         beerUpcs.add(BeerOrderBootStrap.BEER_3_UPC);
     }
 
-    @Transactional
-    @Scheduled(fixedRate = 2000) //run every 2 seconds
+//    @Transactional
+//    @Scheduled(fixedRate = 2000) //run every 2 seconds
     public void placeTastingRoomOrder(){
 
         List<Customer> customerList = customerRepository.findAllByCustomerNameLike(BeerOrderBootStrap.TASTING_ROOM);
@@ -67,7 +67,6 @@ public class TastingRoomService {
                 .build();
 
         BeerOrderDto savedOrder = beerOrderService.placeOrder(customer.getId(), beerOrder);
-
     }
 
     private String getRandomBeerUpc() {
