@@ -41,6 +41,7 @@ public class BeerOrderLine extends BaseEntity {
                          Timestamp lastModifiedDate,
                          BeerOrder beerOrder,
                          UUID beerId,
+                         String beerName,
                          Integer orderQuantity,
                          String upc,
                          Integer quantityAllocated
@@ -48,6 +49,7 @@ public class BeerOrderLine extends BaseEntity {
         super(id, version, createdDate, lastModifiedDate);
         this.beerOrder = beerOrder;
         this.beerId = beerId;
+        this.beerName = beerName;
         this.orderQuantity = orderQuantity;
         this.upc = upc;
         this.quantityAllocated = quantityAllocated;
@@ -57,6 +59,7 @@ public class BeerOrderLine extends BaseEntity {
     private BeerOrder beerOrder;
 
     private UUID beerId;
+    private String beerName;
     private Integer orderQuantity = 0;
     private String upc;
     private Integer quantityAllocated = 0;
