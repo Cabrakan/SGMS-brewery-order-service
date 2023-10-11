@@ -57,7 +57,9 @@ public class BeerOrderController {
 
     @PostMapping("orders")
     @ResponseStatus(HttpStatus.CREATED)
-    public BeerOrderDto placeOrder(@PathVariable("customerId") UUID customerId, @RequestBody BeerOrderDto beerOrderDto){
+    public BeerOrderDto placeOrder(@PathVariable("customerId") UUID customerId,
+                                   @RequestBody BeerOrderDto beerOrderDto
+    ){
         return beerOrderService.placeOrder(customerId, beerOrderDto);
     }
 
