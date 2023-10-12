@@ -2,6 +2,8 @@ package guru.sfg.beer.order.service.services.beerservice;
 
 import guru.sfg.beer.order.service.services.beerservice.model.BeerDto;
 
+import java.util.Optional;
+
 public interface BeerService {
-    BeerDto getBeerDetails(String upc);
+    Optional<BeerDto> getBeerDetails(String upc);
 }

@@ -18,4 +18,9 @@ public class TaskConfig {
     TaskExecutor taskExecutor() {
         return new SimpleAsyncTaskExecutor();
     }
+
+    @Bean
+    String string(){
+        return new String();
+    }
 }

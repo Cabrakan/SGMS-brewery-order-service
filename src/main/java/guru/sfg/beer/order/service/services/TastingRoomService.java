@@ -25,8 +25,10 @@ public class TastingRoomService {
     private final BeerOrderRepository beerOrderRepository;
     private final List<String> beerUpcs = new ArrayList<>(3);
 
-    public TastingRoomService(CustomerRepository customerRepository, BeerOrderService beerOrderService,
-                              BeerOrderRepository beerOrderRepository) {
+    public TastingRoomService(CustomerRepository customerRepository,
+                              BeerOrderService beerOrderService,
+                              BeerOrderRepository beerOrderRepository
+    ) {
         this.customerRepository = customerRepository;
         this.beerOrderService = beerOrderService;
         this.beerOrderRepository = beerOrderRepository;
@@ -35,6 +37,8 @@ public class TastingRoomService {
         beerUpcs.add(BeerOrderBootStrap.BEER_2_UPC);
         beerUpcs.add(BeerOrderBootStrap.BEER_3_UPC);
     }
+
+
 
     @Transactional
     @Scheduled(fixedRate = 5000) //run every 2 seconds
@@ -50,7 +54,6 @@ public class TastingRoomService {
 
     private void doPlaceOrder(Customer customer) {
         String beerToOrder = getRandomBeerUpc();
-
         BeerOrderLineDto beerOrderLine = BeerOrderLineDto.builder()
                 .upc(beerToOrder)
                 .orderQuantity(new Random().nextInt(6)) //todo externalize value to property

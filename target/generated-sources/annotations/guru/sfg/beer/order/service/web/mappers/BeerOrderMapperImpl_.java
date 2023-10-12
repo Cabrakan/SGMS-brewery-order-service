@@ -3,6 +3,7 @@ package guru.sfg.beer.order.service.web.mappers;
 import guru.sfg.beer.order.service.domain.BeerOrder;
 import guru.sfg.beer.order.service.domain.BeerOrder.BeerOrderBuilder;
 import guru.sfg.beer.order.service.domain.BeerOrderLine;
+import guru.sfg.beer.order.service.domain.Customer;
 import guru.sfg.beer.order.service.web.model.BeerOrderDto;
 import guru.sfg.beer.order.service.web.model.BeerOrderDto.BeerOrderDtoBuilder;
 import guru.sfg.beer.order.service.web.model.BeerOrderLineDto;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
+import javassist.NotFoundException;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-11T21:56:18+0200",
+    date = "2023-10-12T22:42:17+0200",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.20.1 (Amazon.com Inc.)"
 )
 @Component
@@ -38,13 +41,19 @@ public class BeerOrderMapperImpl_ implements BeerOrderMapper {
 
         BeerOrderDtoBuilder beerOrderDto = BeerOrderDto.builder();
 
+        beerOrderDto.customerId( beerOrderCustomerId( beerOrder ) );
         beerOrderDto.id( beerOrder.getId() );
         if ( beerOrder.getVersion() != null ) {
             beerOrderDto.version( beerOrder.getVersion().intValue() );
         }
         beerOrderDto.createdDate( dateMapper.asOffsetDateTime( beerOrder.getCreatedDate() ) );
         beerOrderDto.lastModifiedDate( dateMapper.asOffsetDateTime( beerOrder.getLastModifiedDate() ) );
-        beerOrderDto.beerOrderLines( beerOrderLineSetToBeerOrderLineDtoList( beerOrder.getBeerOrderLines() ) );
+        try {
+            beerOrderDto.beerOrderLines( beerOrderLineSetToBeerOrderLineDtoList( beerOrder.getBeerOrderLines() ) );
+        }
+        catch ( NotFoundException e ) {
+            throw new RuntimeException( e );
+        }
         beerOrderDto.orderStatus( orderStatusEnumToOrderStatusEnum( beerOrder.getOrderStatus() ) );
         beerOrderDto.orderStatusCallbackUrl( beerOrder.getOrderStatusCallbackUrl() );
         beerOrderDto.customerRef( beerOrder.getCustomerRef() );
@@ -74,7 +83,22 @@ public class BeerOrderMapperImpl_ implements BeerOrderMapper {
         return beerOrder.build();
     }
 
-    protected List<BeerOrderLineDto> beerOrderLineSetToBeerOrderLineDtoList(Set<BeerOrderLine> set) {
+    private UUID beerOrderCustomerId(BeerOrder beerOrder) {
+        if ( beerOrder == null ) {
+            return null;
+        }
+        Customer customer = beerOrder.getCustomer();
+        if ( customer == null ) {
+            return null;
+        }
+        UUID id = customer.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
+    }
+
+    protected List<BeerOrderLineDto> beerOrderLineSetToBeerOrderLineDtoList(Set<BeerOrderLine> set) throws NotFoundException {
         if ( set == null ) {
             return null;
         }

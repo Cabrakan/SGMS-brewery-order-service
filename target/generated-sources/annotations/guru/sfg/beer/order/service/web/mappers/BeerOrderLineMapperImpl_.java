@@ -4,6 +4,7 @@ import guru.sfg.beer.order.service.domain.BeerOrderLine;
 import guru.sfg.beer.order.service.domain.BeerOrderLine.BeerOrderLineBuilder;
 import guru.sfg.beer.order.service.web.model.BeerOrderLineDto;
 import guru.sfg.beer.order.service.web.model.BeerOrderLineDto.BeerOrderLineDtoBuilder;
+import javassist.NotFoundException;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-10-11T21:56:18+0200",
+    date = "2023-10-12T22:40:52+0200",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.20.1 (Amazon.com Inc.)"
 )
 @Component
@@ -22,7 +23,7 @@ public class BeerOrderLineMapperImpl_ implements BeerOrderLineMapper {
     private DateMapper dateMapper;
 
     @Override
-    public BeerOrderLineDto beerOrderLineToDto(BeerOrderLine line) {
+    public BeerOrderLineDto beerOrderLineToDto(BeerOrderLine line) throws NotFoundException {
         if ( line == null ) {
             return null;
         }
