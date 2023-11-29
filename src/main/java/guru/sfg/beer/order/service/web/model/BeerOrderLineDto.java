@@ -22,12 +22,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+//@JsonSerialize(using = BeerOrderLineSerializer.class)
 public class BeerOrderLineDto extends BaseItem {
     @Builder
     public BeerOrderLineDto(UUID id,
@@ -48,6 +50,9 @@ public class BeerOrderLineDto extends BaseItem {
 
     private String upc;
     private String beerName;
+    private String beerStyle;
     private UUID beerId;
     private Integer orderQuantity = 0;
+    private BigDecimal price;
+
 }

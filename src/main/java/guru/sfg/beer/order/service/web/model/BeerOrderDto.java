@@ -29,6 +29,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+//@JsonSerialize(using = BeerOrderSerializer.class)
 public class BeerOrderDto extends BaseItem {
     @Builder
     public BeerOrderDto(UUID id,

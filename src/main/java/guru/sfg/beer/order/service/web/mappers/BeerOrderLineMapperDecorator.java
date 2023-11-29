@@ -34,6 +34,8 @@ public class BeerOrderLineMapperDecorator implements BeerOrderLineMapper {
         if (beerDetails.isPresent()) {
             beerOrderLineDto.setBeerId(beerDetails.get().getId());
             beerOrderLineDto.setBeerName(beerDetails.get().getBeerName());
+            beerOrderLineDto.setBeerStyle(beerDetails.get().getBeerStyle().name());
+            beerOrderLineDto.setPrice(beerDetails.get().getPrice());
         } else {
             log.error("Beer details is empty!");
         }
